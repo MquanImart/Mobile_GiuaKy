@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 
+type Lap = { name: number; time: string; };
+
 type SectionProps = PropsWithChildren<{
     index: number;
     time: string;
@@ -36,7 +38,7 @@ function stopwatch(): React.JSX.Element {
     const [isRunning, setIsRunning] = useState(false);
     const [timer, setTimer] = useState(0);
     const [timerlap, setTimerlap] = useState(0);
-    const [laps, setLaps] = useState([]);
+    const [laps, setLaps] = useState<Lap[]>([]);
 
     const [lapmin, setLapMin] = useState(0);
     const [indexlapmin, setIndexMin] = useState(0);
@@ -65,7 +67,7 @@ function stopwatch(): React.JSX.Element {
         }
       }
       const lapTimer = () => {
-        const newLap = {
+        const newLap:Lap = {
             name: (laps.length + 1),
             time: String(Math.floor((timer - timerlap) / 6000)).padStart(2, '0') + ':' 
             + String(Math.floor(((timer - timerlap) / 100) % 60)).padStart(2, '0') + ',' 
